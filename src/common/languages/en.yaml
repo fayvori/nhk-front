@@ -1,0 +1,29 @@
+main:
+  amenities:
+    responsobility: 
+      header: "Responsobility"
+      body: "Support works 24/7"
+    accomondation:
+      header: "Accomondation"
+      body: "Convenient and practical design"
+    security:
+      header: "Security"
+      body: "All secure"
+
+  why:
+    header: "Why do you need a rental service"
+    body: "To rent things, you used to have to look at dozens of rental sites. Call and find out the conditions in each of them. Then negotiate in words - without any guarantee of availability. Now all ads are collected in one place: with a photo, a detailed description and an online availability calendar. Choose an item available for your dates, get confirmation from the landlord and pay. The thing is guaranteed to be waiting for you before the start of the transaction, even if it is needed in another city. And all this is completely online, safe and fast.<br/><br/>To rent to other people, not to sell on bulletin boards. It happens - you just get rid of it, as you desperately need it again. As long as the thing is rented, it remains yours and does not lie idle - rent it out through the service when you are not using it and get additional income."
+
+  categories:
+    header: "Categories"
+    goTo: "Go to full catalog"
+
+
+buttons:
+  back: "Back"
+  login: "Login"
+  logout: "Logout"
+  register: "Register"
+  backToMain: "Back to home"
+  catalog: "Catalog"
+  search: "Search"
