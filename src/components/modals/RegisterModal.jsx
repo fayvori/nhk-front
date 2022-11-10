@@ -2,9 +2,10 @@ import { useState } from "react"
 import useGeolocation from "react-hook-geolocation"
 import axios from "axios"
 import { Formik } from "formik"
-import { API_URL } from "../../constants"
+import { API_URL, HASHER_KEY } from "../../constants"
 import { Box, Modal, Button, TextField } from "@mui/material"
 import { ModalInput } from "../utils/ModalInput"
+import AES from "crypto-js/aes"
 
 const style = {
   position: 'absolute',
@@ -24,14 +25,16 @@ export const RegisterModal = (props) => {
     const geolocation = useGeolocation()
     const [error, setError] = useState("")
 
+
+    console.log(geolocation.latitude)
     const handleRegister = async (values) => {
         const res = await axios.post(API_URL+"/User/Register", {
             "Login": values.login,
             "Password": values.password,
             "Telephone": values.telephone,
             "Email": values.email,
-            "Lat": geolocation.latitude,
-            "Lon": geolocation.longitude
+            "Lat": geolocation.latitude ?? 55.878,
+            "Lon": geolocation.longitude ?? 37.653
         }).catch(error => {
             if (error.response.status == 400) {
                 setError("Пользователель уже существует")
@@ -45,6 +48,9 @@ export const RegisterModal = (props) => {
         })
 
         if (res.data != null) {
+            const hashedPassword = AES.encrypt(res.data.password, HASHER_KEY).toString()
+            res.data.password = hashedPassword 
+            
             localStorage.setItem('userInfo', JSON.stringify(res.data))
             props.handleClose()
         }

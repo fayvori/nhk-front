@@ -28,7 +28,9 @@ export const FilterCollapse = (props) => {
                 <Slider
                     className="max-w-[280px]"
                     getAriaLabel={() => 'Price range'}
-                    value={price}
+                    defaultValue={price}
+                    min={0}
+                    max={100_000}
                     onChange={handlePriceChange}
                     valueLabelDisplay="auto"
                 />

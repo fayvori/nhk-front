@@ -6,6 +6,7 @@ import { RegisterModal } from "./modals/RegisterModal"
 import { Container } from "./Container"
 import { Link } from "react-router-dom";
 import { SelectCity } from "./utils/SelectCity"
+import { RENT_MEDIA_URL } from "../constants"
 
 import logo from '../assets/logo.svg'
 import marker_icon from '../assets/map_marker.svg'
@@ -19,7 +20,7 @@ export const MainHeader = () => {
         window.location.reload();
     }
 
-    let userInfo = localStorage.getItem('userInfo')
+    let userInfo = JSON.parse(localStorage.getItem('userInfo'))
 
     return (
         <>
@@ -46,7 +47,7 @@ export const MainHeader = () => {
                         <Button onClick={() => logOut()} style={{ marginLeft: 10 }} variant="outlined">Выход</Button>
                         <Link to="/profile">
                             <div className="w-[60px] h-[60px] ml-2">
-                                <img className="rounded-full" src={"https://media.rentinhand.ru/prod/public/preloader.png"} />
+                                <img className="rounded-full" src={`${RENT_MEDIA_URL}${userInfo.avatar}`} />
                             </div>
                         </Link>
                     </>

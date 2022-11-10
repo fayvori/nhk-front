@@ -18,6 +18,7 @@ import { filterPrice, filterTags } from "../atoms"
 
 export const Catalog = () => {
     const [searchParams, setSearchParams] = useSearchParams()
+    let profile = JSON.parse(localStorage.getItem('userInfo'))
 
     const [isSomethingChanged, setIsSomethingChanged] = useState(false)
     const [loading, setLoading] = useState(true)
@@ -30,6 +31,7 @@ export const Catalog = () => {
 
     const controller = new AbortController();
 
+    console.log(profile.city.toLowerCase())
     const handleChange = (event) => {
         setIsSomethingChanged(true)
         setItems([])
@@ -45,7 +47,8 @@ export const Catalog = () => {
     const getData = async () => {
         const res = await axios.post(API_URL+"/Catalog/Inventories",{
             "Search": search,
-            "Tags": tags.split(" ")
+            "Tags": tags.split(" "),
+            "City": profile.city.toLowerCase() ?? "москва"
         }, { signal: controller.signal })
         
         if (res.data != null) {

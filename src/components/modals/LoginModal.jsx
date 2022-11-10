@@ -1,10 +1,11 @@
 import { useState } from "react"
 import { Box, Modal, Button, TextField } from "@mui/material"
 import { Formik } from "formik"
-import { API_URL } from "../../constants"
+import { API_URL, HASHER_KEY } from "../../constants"
 import { ModalInput } from "../utils/ModalInput"
 import axios from "axios"
 import ReactLoading from "react-loading";
+import AES from "crypto-js/aes"
 
 const style = {
   position: 'absolute',
@@ -35,7 +36,9 @@ export const LoginModal = (props) => {
         })
        
         if (res.data != null) {
-            console.log(res)
+            const hashedPassword = AES.encrypt(res.data.password, HASHER_KEY).toString()
+            res.data.password = hashedPassword 
+
             localStorage.setItem('userInfo', JSON.stringify(res.data))
             props.handleClose()
         }

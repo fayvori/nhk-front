@@ -14,8 +14,7 @@ export const SelectCity = () => {
 
     const [message, setMessage] = useState("")
     const [city, setCity] = useState("")
-
-    console.log(city)
+    let profile = JSON.parse(localStorage.getItem("userInfo"))
 
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
@@ -26,16 +25,14 @@ export const SelectCity = () => {
 
     const changeCity = async (city) => {
         const res = await axios.put(API_URL+"/Profile/City", {
-            params: {
-                city
-            }
-        }).catch(resStatusError => {
-            if (resStatusError.response.status == 200) {
-                alert("Город изменен успешно")
-            }   
+            "City": city,
+            "Login": profile.login
         })
 
-        console.log(res)
+        if (res.status == 200) {
+            profile.city = city
+            localStorage.setItem('userInfo', JSON.stringify(profile))
+        }
     }
     
     const handleClose = (city) => {

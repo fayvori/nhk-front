@@ -3,6 +3,7 @@ import { MainFooter } from "../components/MainFooter"
 import { Link, Navigate } from "react-router-dom";
 import { BackButton } from "../components/utils/BackButton"
 import { Container } from "../components/Container"
+import { RENT_MEDIA_URL } from "../constants" 
 import { Button } from "@mui/material"
 
 export const Profile = () => {
@@ -18,7 +19,7 @@ export const Profile = () => {
                 <div>
                     {profile == null ? (<Navigate to="/" replace />) :
                     (<section className="flex flex-col md:flex-row{...bindTrigger(popupState)} items-center justify-center">
-                        <div><img className="max-w-[250px] rounded-full min-h-[250px]" src={"https://media.rentinhand.ru/prod/public/preloader.png"} /></div>
+                        <div><img className="max-w-[250px] rounded-full min-h-[250px]" src={`${RENT_MEDIA_URL}${profile.avatar}`} /></div>
 
                         <div className="ml-5">
                             <p className="mb-3">ФИО: <span className="text-gray-500">{profile.fio}</span></p>
