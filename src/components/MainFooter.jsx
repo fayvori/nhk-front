@@ -1,11 +1,13 @@
 import './mainfooter.css'
 import logo from '../assets/logo.svg'
 import { Link } from "react-router-dom"
+import { Container } from "../components/Container" 
 
 export const MainFooter = () => {
     return (
         <div className="line">
-<footer className="footer">
+        <Container>
+        <footer className="footer">
   <div className="footer__addr max-w-[220px]">
 
     <img src={logo} style={{maxHeight: 109, margin: "0 auto"}} />
@@ -43,6 +45,7 @@ export const MainFooter = () => {
     </li>
   </ul>
 </footer>
+        </Container>
 </div>
     )
 }

@@ -8,6 +8,7 @@ import {
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 
+import { RecoilRoot } from "recoil"
 import { Home } from "./pages/Home"
 import { NotFound } from "./pages/NotFound"
 import { Catalog } from "./pages/Catalog"
@@ -57,11 +58,13 @@ const router = createBrowserRouter([
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
+  <RecoilRoot>
   <React.StrictMode>
     <ThemeProvider theme={theme}>
         <RouterProvider router={router} />
     </ThemeProvider>
   </React.StrictMode>
+  </RecoilRoot>
 );
 
 // If you want to start measuring performance in your app, pass a function

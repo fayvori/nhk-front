@@ -4,6 +4,7 @@ import { useSearchParams } from "react-router-dom"
 import ReactLoading from "react-loading";
 import axios from "axios"
 import { API_URL } from "../constants"
+import { useRecoilState } from "recoil"
 
 import { CatalogGrid } from "../components/CatalogGrid"
 import { MainHeader } from "../components/MainHeader"
@@ -12,32 +13,40 @@ import { Container } from "../components/Container"
 import { BackButton } from "../components/utils/BackButton"
 import { Input } from "../components/utils/Input"
 import { CatalogFilter } from "../components/CatalogFilter"
+import { FilterCollapse } from "../components/Collapse"
+import { filterPrice, filterTags } from "../atoms"
 
 export const Catalog = () => {
     const [searchParams, setSearchParams] = useSearchParams()
-    
+
     const [isSomethingChanged, setIsSomethingChanged] = useState(false)
     const [loading, setLoading] = useState(true)
     const [isFilterOpen, setIsFilterOpen] = useState(false)
     const [items, setItems] = useState([])
-    const [search, setSearch] = useState(searchParams.get("q"))
+    const [search, setSearch] = useState(searchParams.get("q") ?? "")
+
+    const [price, setPrice] = useRecoilState(filterPrice);
+    const [tags, setTags] = useRecoilState(filterTags);
+
+    const controller = new AbortController();
 
     const handleChange = (event) => {
+        setIsSomethingChanged(true)
         setItems([])
         setLoading(true)
         setSearch(event.target.value)
         setSearchParams({ q: event.target.value })
-    }
+    
+        controller.abort()
 
-    const controller = new AbortController();
+        setTimeout(() => { getData() }, 1500)
+    }
     
     const getData = async () => {
-        console.log("im here")
         const res = await axios.post(API_URL+"/Catalog/Inventories",{
-                signal: controller.signal
-            }, {
-            "Search": search
-        })
+            "Search": search,
+            "Tags": tags.split(" ")
+        }, { signal: controller.signal })
         
         if (res.data != null) {
             setLoading(false)
@@ -46,11 +55,11 @@ export const Catalog = () => {
         setItems(res.data)
     }
 
+    console.log(tags)
+
     useEffect(() => {
-        if (items.length == 0) {
-            getData()
-        }
-    })
+            getData()  
+    }, [])
 
     return (
         <>
@@ -69,9 +78,9 @@ export const Catalog = () => {
                     />    
                 </div>
                     <Button onClick={() => setIsFilterOpen(prev => !prev)} variant="contained">Фильтр</Button>
-                {isFilterOpen && <CatalogFilter isOpen={isFilterOpen} setIsOpen={setIsFilterOpen} />}
             </div>
 
+                    <FilterCollapse isOpen={isFilterOpen} fetchFunc={getData} />
         {!loading ? (<CatalogGrid items={items} />) : (
             <div className="flex align-center justify-center">
                 <ReactLoading type="spin" color="#000" className="max-w-[50px]" />

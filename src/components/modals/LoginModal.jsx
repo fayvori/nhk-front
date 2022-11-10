@@ -35,6 +35,7 @@ export const LoginModal = (props) => {
         })
        
         if (res.data != null) {
+            console.log(res)
             localStorage.setItem('userInfo', JSON.stringify(res.data))
             props.handleClose()
         }

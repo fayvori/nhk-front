@@ -10,6 +10,7 @@ import { Home } from "./pages/Home"
 import { NotFound } from "./pages/NotFound"
 import { Catalog } from "./pages/Catalog"
 import { Profile } from "./pages/Profile" 
+import { History } from './pages/History'
 
 const router = createBrowserRouter([
   {
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
       element: <Profile />
   },
   {
+      path: "/history",
+      element: <History />
+  },
+  {
       path: "*",
       element: <NotFound />
   }
@@ -32,13 +37,9 @@ const router = createBrowserRouter([
 
 function App() {
   return (
-    <div className="App">
         <React.Suspense fallback={<div>Loading...</div>}>
-        <RecoilRoot>
             <RouterProvider routes={router} />
-        </RecoilRoot>
       </React.Suspense>
-    </div>
   );
 }
 

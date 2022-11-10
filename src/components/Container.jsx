@@ -1,7 +1,7 @@
 
 export const Container = ({ children }) => {
     return (
-        <section className="px-10 max-w-[1596px]">
+        <section style={{ margin: "0 auto" }} className="px-10 max-w-[1596px]">
             {children}
         </section>
     )
