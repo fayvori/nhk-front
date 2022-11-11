@@ -10,7 +10,7 @@ export const MainFooter = () => {
         <footer className="footer">
   <div className="footer__addr max-w-[220px]">
 
-    <Link to="/"><img src={logo} style={{maxHeight: 109, margin: "0 auto"}} /></Link>
+    <Link to="/home"><img src={logo} style={{maxHeight: 109, margin: "0 auto"}} /></Link>
     <h1 className="text-3xl font-medium mb-2">Rent in Hand</h1>
    <p className="text-gray-400">Сервис с безопасными сделками аренды вещей</p>
   </div>

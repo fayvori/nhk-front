@@ -30,7 +30,7 @@ export const FilterCollapse = (props) => {
                     getAriaLabel={() => 'Price range'}
                     defaultValue={price}
                     min={0}
-                    max={100_000}
+                    max={50_000}
                     onChange={handlePriceChange}
                     valueLabelDisplay="auto"
                 />

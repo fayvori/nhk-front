@@ -21,7 +21,7 @@ export const HeroInput = () => {
                 onChange={handleInput}
             />
 
-            <Button variant="contained" onClick={() => navigate(`/catalog/?q=${search}`)}>Поиск</Button>
+            <Button variant="contained" onClick={() => navigate(`/?q=${search}`)}>Поиск</Button>
         </div>
     )
 }

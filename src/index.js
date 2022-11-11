@@ -36,11 +36,11 @@ const theme = createTheme({
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Home />,
+    element: <Catalog />,
   },
   {
-      path: "/catalog",
-      element: <Catalog />
+      path: "/home",
+      element: <Home />
   },
   {
       path: "/profile",

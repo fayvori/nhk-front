@@ -2,7 +2,7 @@ import { atom } from "recoil"
 
 export const filterPrice = atom({
     key: "filterPrice",
-    default: new Array(0, 100_000)
+    default: new Array(0, 50_000)
 })
 
 export const filterTags = atom({

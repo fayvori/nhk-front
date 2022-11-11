@@ -24,6 +24,14 @@ export const SelectCity = () => {
     }
 
     const changeCity = async (city) => {
+        if (profile == null) {
+            localStorage.setItem("anonimCity", city)
+            window.location.reload()
+            return 
+        } else {
+            localStorage.removeItem('anonimCity')
+        }
+
         const res = await axios.put(API_URL+"/Profile/City", {
             "City": city,
             "Login": profile.login
@@ -32,6 +40,7 @@ export const SelectCity = () => {
         if (res.status == 200) {
             profile.city = city
             localStorage.setItem('userInfo', JSON.stringify(profile))
+            window.location.reload()
         }
     }
     

@@ -29,9 +29,9 @@ export const MainHeader = () => {
         <Container>
         <div className="flex justify-between items-center">
             <div className="flex justify-start items-center">
-                <Button variant="contained"><Link to="/catalog">Каталог</Link></Button>
+                <Button variant="contained"><Link to="/">Каталог</Link></Button>
                 <div className="ml-3">
-                    <Link to="/"><img src={logo} style={{ maxWidth: 70, maxHeight: 70 }} /></Link>
+                    <Link to="/home"><img src={logo} style={{ maxWidth: 70, maxHeight: 70 }} /></Link>
                 </div>
             </div>
             

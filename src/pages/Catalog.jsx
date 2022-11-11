@@ -19,6 +19,7 @@ import { filterPrice, filterTags } from "../atoms"
 export const Catalog = () => {
     const [searchParams, setSearchParams] = useSearchParams()
     let profile = JSON.parse(localStorage.getItem('userInfo'))
+    let anonimCity = localStorage.getItem('anonimCity')
 
     const [isSomethingChanged, setIsSomethingChanged] = useState(false)
     const [loading, setLoading] = useState(true)
@@ -31,24 +32,37 @@ export const Catalog = () => {
 
     const controller = new AbortController();
 
-    console.log(profile.city.toLowerCase())
     const handleChange = (event) => {
         setIsSomethingChanged(true)
         setItems([])
         setLoading(true)
         setSearch(event.target.value)
-        setSearchParams({ q: event.target.value })
-    
-        controller.abort()
-
-        setTimeout(() => { getData() }, 1500)
+        setSearchParams({ q: event.target.value })   
     }
-    
+   
+    function getCity() {
+        if (profile == null && anonimCity == null) {
+            return "москва"
+        } else if (anonimCity != null) {
+            return anonimCity.toLowerCase()
+        } else {
+            return profile?.city.toLowerCase()
+        }
+    }
+
+    console.log(getCity())
+
     const getData = async () => {
+        if (profile != null) {
+            localStorage.removeItem('anonimCity')
+        }
+
         const res = await axios.post(API_URL+"/Catalog/Inventories",{
             "Search": search,
             "Tags": tags.split(" "),
-            "City": profile.city.toLowerCase() ?? "москва"
+            "City": getCity(),
+            "MinPrice": price[0],
+            "MaxPrice": price[1]
         }, { signal: controller.signal })
         
         if (res.data != null) {
@@ -76,6 +90,7 @@ export const Catalog = () => {
                     <Input
                         value={search}
                         onChange={handleChange}
+                        onBlur={() => getData()}
                         style={{ marginLeft: 10 }}
                         placeholder="Поиск"
                     />    

@@ -41,7 +41,11 @@ export const History = () => {
     useEffect(() => {
         getData()
     }, [])
-    
+
+    function parseDate(date) {
+        return date
+    }
+        
     return (
         <>
             <MainHeader />
@@ -57,6 +61,7 @@ export const History = () => {
         <TableHead>
           <TableRow>
             <TableCell>№</TableCell>
+            <TableCell align="right">Время</TableCell>
             <TableCell align="right">Инвертарь</TableCell>
             <TableCell align="right">Статус</TableCell>
             <TableCell align="right">Итог</TableCell>
@@ -72,6 +77,10 @@ export const History = () => {
                                     <TableCell component="th" scope="row">
                                         {index+1}
                                     </TableCell>
+                                        <TableCell align="right">
+                                            <div>{parseDate(row.timeStart)}</div>
+                                            <div>{parseDate(row.timeEnd)}</div>
+                                        </TableCell>
                                         <TableCell align="right">{row.inventories.map(item => (
                                             <div key={item.id}>{item.inventory.title}</div>
                                         ))}</TableCell>
